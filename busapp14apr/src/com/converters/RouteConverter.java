@@ -18,7 +18,7 @@ public class RouteConverter {
 
 	
 	
-	@XmlElement (name = "cucu")
+	@XmlElement (name = "route_id")
 	public String getRoute_id() {
 		return entity.getRoute_id();
 	}
@@ -47,31 +47,39 @@ public class RouteConverter {
 		return entity.getRoute_long_name();
 	}
 	public void setRoute_long_name(String route_long_name) {
-		this.route_long_name = route_long_name;
+		entity.setRoute_long_name(route_long_name);
 	}
+	
+	@XmlElement (name = "cucu")
 	public String getRoute_desc() {
-		return route_desc;
+		return entity.getRoute_desc();
 	}
 	public void setRoute_desc(String route_desc) {
-		this.route_desc = route_desc;
+		entity.setRoute_desc(route_desc);
 	}
+	
+	@XmlElement (name = "route_type")
 	public String getRoute_type() {
-		return route_type;
+		return entity.getRoute_type();
 	}
 	public void setRoute_type(String route_type) {
-		this.route_type = route_type;
+		entity.setRoute_type(route_type);
 	}
+	
+	@XmlElement (name = "route_color")
 	public String getRoute_color() {
-		return route_color;
+		return entity.getRoute_color();
 	}
 	public void setRoute_color(String route_color) {
-		this.route_color = route_color;
+		entity.setRoute_color(route_color);
 	}
+	
+	@XmlElement (name = "route_text_color")
 	public String getRoute_text_color() {
-		return route_text_color;
+		return entity.getRoute_color();
 	}
 	public void setRoute_text_color(String route_text_color) {
-		this.route_text_color = route_text_color;
+		entity.setRoute_text_color(route_text_color);
 	}
-
+	
 }
