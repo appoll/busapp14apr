@@ -1,0 +1,3 @@
+agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone,agency_fare_url
+54,RATP Iasi,http://ratp-iasi.ro/,Europe/Bucharest,ro,0800.110.427,http://ratp-iasi.ro/tarife.html
+55,Unistil,http://ratp-iasi.ro/,Europe/Bucharest,ro,0800.110.427,http://ratp-iasi.ro/tarife.html

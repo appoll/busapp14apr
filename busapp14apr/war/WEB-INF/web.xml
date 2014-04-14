@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>Busapp14apr</servlet-name>
+		<servlet-class>com.licenta.Busapp14aprServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Busapp14apr</servlet-name>
+		<url-pattern>/busapp14apr</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>SaveDataServlet</servlet-name>
+		<servlet-class>com.licenta.SaveDataServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveDataServlet</servlet-name>
+		<url-pattern>/savedataservlet</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+	<servlet-name>Get Resources</servlet-name>
+	<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+	<init-param>
+     <param-name>jersey.config.server.provider.packages</param-name>
+     <param-value>com.licenta</param-value>
+     </init-param>
+     <load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Get Resources</servlet-name>
+		<url-pattern>/get/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
