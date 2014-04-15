@@ -15,8 +15,6 @@ public class RouteConverter {
 	public RouteConverter() {
 		this.entity = new Route();
 	}
-
-	
 	
 	@XmlElement (name = "route_id")
 	public String getRoute_id() {
@@ -26,12 +24,12 @@ public class RouteConverter {
 		entity.setRoute_id(route_id);
 	}
 	
-	@XmlElement (name = "cucu")
+	@XmlElement (name = "agency_id")
 	public String getAgency_id() {
 		return entity.getAgency_id();
 	}
 	public void setAgency_id(String agency_id) {
-		entity.setAgency_id(agency_id);;
+		entity.setAgency_id(agency_id);
 	}
 	
 	@XmlElement (name = "cucu")

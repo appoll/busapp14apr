@@ -16,6 +16,20 @@ public class Route {
 	public Route() {
 	}
 	
+	public Route(String route_id, String agency_id, String route_short_name,
+			String route_long_name, String route_desc, String route_type,
+			String route_color, String route_text_color) {
+		this.route_id = route_id;
+		this.agency_id = agency_id;
+		this.route_short_name = route_short_name;
+		this.route_long_name = route_long_name;
+		this.route_desc = route_desc;
+		this.route_type = route_type;
+		this.route_color = route_color;
+		this.route_text_color = route_text_color;
+	}
+
+
 	public String getRoute_id() {
 		return route_id;
 	}
