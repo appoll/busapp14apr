@@ -8,6 +8,21 @@ public class Trip {
 	String direction_id;
 	String wheelchair_accessible;
 	String shape_id;
+	
+	public Trip () {}
+	
+	public Trip(String route_id, String service_id, String trip_id,
+			String trip_headsign, String direction_id,
+			String wheelchair_accessible, String shape_id) {
+		this.route_id = route_id;
+		this.service_id = service_id;
+		this.trip_id = trip_id;
+		this.trip_headsign = trip_headsign;
+		this.direction_id = direction_id;
+		this.wheelchair_accessible = wheelchair_accessible;
+		this.shape_id = shape_id;
+	}
+	
 	public String getRoute_id() {
 		return route_id;
 	}

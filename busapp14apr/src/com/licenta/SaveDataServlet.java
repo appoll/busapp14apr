@@ -254,10 +254,11 @@ public class SaveDataServlet extends HttpServlet {
 				stop_id = tokens[3];
 				stop_sequence = tokens[4];
 			
-				Entity stoptime = new Entity ("Stop Times");
+				Entity stoptime = new Entity ("StopTimes");
 				stoptime.setProperty("trip_id", trip_id);
 				stoptime.setProperty("arrival_time", arrival_time);
 				stoptime.setProperty("departure_time", departure_time);
+				stoptime.setProperty("stop_id", stop_id);
 				stoptime.setProperty("stop_sequence", stop_sequence);
 				datastore.put(stoptime);
 			  }

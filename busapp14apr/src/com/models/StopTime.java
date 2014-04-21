@@ -1,13 +1,18 @@
 package com.models;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 public class StopTime {
 
 	 String trip_id;
-	    String arrival_time;
-	    String departure_time;
-	    String stop_id;
-	    String stop_sequence;
-		public String getTrip_id() {
+	 String arrival_time;
+	 String departure_time;
+	 String stop_id;
+	 String stop_sequence;
+	
+	 	public String getTrip_id() {
 			return trip_id;
 		}
 		public void setTrip_id(String trip_id) {
@@ -37,4 +42,7 @@ public class StopTime {
 		public void setStop_sequence(String stop_sequence) {
 			this.stop_sequence = stop_sequence;
 		}
+		
+		
+		
 }

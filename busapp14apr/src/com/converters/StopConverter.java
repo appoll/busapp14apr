@@ -2,6 +2,7 @@ package com.converters;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.models.Stop;
 
@@ -33,6 +34,7 @@ private Stop entity = null;
 	}
 	
 	@XmlElement (name = "stop_desc")
+	@XmlTransient
 	public String getStop_desc() {
 		return entity.getStop_desc();
 	}
@@ -57,6 +59,7 @@ private Stop entity = null;
 	}
 	
 	@XmlElement (name = "zone_id")
+	@XmlTransient
 	public String getZone_id() {
 		return entity.getZone_id();
 	}
@@ -73,6 +76,7 @@ private Stop entity = null;
 	}
 	
 	@XmlElement (name = "parent_station")
+	@XmlTransient
 	public String getParent_station() {
 		return entity.getParent_station();
 	}

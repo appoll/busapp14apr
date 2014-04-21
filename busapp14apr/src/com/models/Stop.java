@@ -3,6 +3,31 @@ package com.models;
 public class Stop {
 
 	String stop_id;
+	String stop_name;
+	String stop_desc;
+	String stop_lat;
+	String stop_lon;
+	String zone_id;
+	String location_type;
+	String parent_station;
+	
+	public Stop (){}
+	
+	
+	public Stop(String stop_id, String stop_name, String stop_desc,
+			String stop_lat, String stop_lon, String zone_id,
+			String location_type, String parent_station) {
+		this.stop_id = stop_id;
+		this.stop_name = stop_name;
+		this.stop_desc = stop_desc;
+		this.stop_lat = stop_lat;
+		this.stop_lon = stop_lon;
+		this.zone_id = zone_id;
+		this.location_type = location_type;
+		this.parent_station = parent_station;
+	}
+
+
 	public String getStop_id() {
 		return stop_id;
 	}
@@ -51,11 +76,5 @@ public class Stop {
 	public void setParent_station(String parent_station) {
 		this.parent_station = parent_station;
 	}
-	String stop_name;
-	String stop_desc;
-	String stop_lat;
-	String stop_lon;
-	String zone_id;
-	String location_type;
-	String parent_station;
+	
 }

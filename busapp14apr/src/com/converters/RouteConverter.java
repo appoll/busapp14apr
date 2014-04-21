@@ -2,6 +2,7 @@ package com.converters;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.models.Route;
 
@@ -32,7 +33,7 @@ public class RouteConverter {
 		entity.setAgency_id(agency_id);
 	}
 	
-	@XmlElement (name = "cucu")
+	@XmlElement (name = "route_short_name")
 	public String getRoute_short_name() {
 		return entity.getRoute_short_name();
 	}
@@ -40,7 +41,7 @@ public class RouteConverter {
 		entity.setRoute_short_name(route_short_name);
 	}
 	
-	@XmlElement (name = "cucu")
+	@XmlElement (name = "route_long_name")
 	public String getRoute_long_name() {
 		return entity.getRoute_long_name();
 	}
@@ -48,7 +49,8 @@ public class RouteConverter {
 		entity.setRoute_long_name(route_long_name);
 	}
 	
-	@XmlElement (name = "cucu")
+	@XmlElement (name = "route_desc")
+	@XmlTransient
 	public String getRoute_desc() {
 		return entity.getRoute_desc();
 	}
@@ -65,6 +67,7 @@ public class RouteConverter {
 	}
 	
 	@XmlElement (name = "route_color")
+	@XmlTransient
 	public String getRoute_color() {
 		return entity.getRoute_color();
 	}
@@ -73,6 +76,7 @@ public class RouteConverter {
 	}
 	
 	@XmlElement (name = "route_text_color")
+	@XmlTransient
 	public String getRoute_text_color() {
 		return entity.getRoute_color();
 	}

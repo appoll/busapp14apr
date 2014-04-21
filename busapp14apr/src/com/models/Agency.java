@@ -2,8 +2,31 @@ package com.models;
 
 public class Agency {
 
-	 String agency_id;
-    public String getAgency_id() {
+	String agency_id;
+	String agency_name;
+    String agency_url;
+    String agency_timezone;
+    String agency_lang;
+    String agency_phone;
+    String agency_fare_url; 
+	
+    public Agency (){}
+    
+    
+    public Agency(String agency_id, String agency_name, String agency_url,
+			String agency_timezone, String agency_lang, String agency_phone,
+			String agency_fare_url) {
+		this.agency_id = agency_id;
+		this.agency_name = agency_name;
+		this.agency_url = agency_url;
+		this.agency_timezone = agency_timezone;
+		this.agency_lang = agency_lang;
+		this.agency_phone = agency_phone;
+		this.agency_fare_url = agency_fare_url;
+	}
+
+
+	public String getAgency_id() {
 		return agency_id;
 	}
 	public void setAgency_id(String agency_id) {
@@ -45,11 +68,6 @@ public class Agency {
 	public void setAgency_fare_url(String agency_fare_url) {
 		this.agency_fare_url = agency_fare_url;
 	}
-	String agency_name;
-    String agency_url;
-    String agency_timezone;
-    String agency_lang;
-    String agency_phone;
-    String agency_fare_url;
+	
 	
 }
