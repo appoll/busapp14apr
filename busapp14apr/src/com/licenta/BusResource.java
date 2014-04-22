@@ -30,7 +30,7 @@ import com.models.Trip;
 
 
 
-@Path("/hr/")
+@Path("/get/")
 public class BusResource {
 
 			//List of agencies

@@ -24,5 +24,157 @@
         <td><a href="savedataservlet">SaveDataServlet</a></td>
       </tr>
     </table>
-  </body>
+    
+    <h1>Documentatie</h1>
+  	<h2>Fundamentals</h2>  
+	Acesta este un read-only REST API. Datele sunt retrieved prin trimiterea unei cereri HTTP GET la un URL appropriate. Autentificarea nu este necesara,  iar operatiile de scriere sunt inexistente.
+  	
+  	<h2>Tipuri de date supported</h2>  
+  
+  	<p>Formatul răspunsului este selectat prin adăugarea unei extensii la finalul endpoints descrise mai jos. Aceasta se realizează prin appending unui punct urmat de către unul dintre cuvintele cheie din tabelul următor.</p>
+  	
+  	<table border="1">
+  		<tr>
+  			<th>Cuvânt cheie</th>
+  			<th>MIME Type</th>
+  			<th>Format</th>
+  			<th>Observații</th>
+  		</tr>
+  		<tr>
+  			<td>
+  				<tt>json</tt>
+  			</td>
+  			<td>
+  				<tt>application/json</tt>
+  			</td>
+  			<td>
+  				<a href="http://json.org/">JSON</a>
+  			</td>
+  			<td>Acesta este formatul de date principal folosit.</td>
+  		</tr>
+  		<tr>
+  			<td>
+  				<tt>js</tt>
+  			</td>
+  			<td>
+  				<tt>text/javascript</tt>
+  			</td>
+  			<td>JavaScript</td>
+  			<td>Allows cross-site requests via the JSON-P convention. Provide a <tt>callback</tt> query string argument containing the name of your JavaScript callback function.</td>
+  		</tr>
+  		<tr>
+  			<td><tt>kml</tt></td>
+  			<td><tt>application/vnd.google-earth.kml+xml</tt></td>
+  			<td><a href="http://code.google.com/apis/kml/documentation/">KML</a></td>
+  			<td>A geographical data format supported only for stops and vehicles. This format can be used to add a "Network Link" to <a href="http://earth.google.com/">Google Earth</a>. Only the location and a display name of the retrieved items are available at this time.</td>
+  		</tr>
+  	</table>
+  	
+  <h2>Data Endpoints</h2>
+  <h3>Lista agențiilor</h3>
+  <p>URL: <tt>/agencies</tt></p>
+  <p>Returnează o listă de agenții care pot fi interogate via acest API.</p>
+  <h4>Exemple</h4>
+  	<ul>
+  		<li><a href="/agencies.json">Listă de agenții în JSON</a></li>
+  	</ul>
+  <h3>Proprietățile unei agenții</h3>
+  <p>URL: <tt>/agencies/<var>id</var></tt></p>
+  <p>Returnează un obiect reprezentând agenția dorită.</p>
+  <h4>Exemple</h4>
+  	<ul>
+  		<li><a href="/agencies/54.json">RATP Iași în JSON</a></li>
+  	</ul>
+  <h3>Lista rutelor unei agenții</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/routes</tt></p>
+  <p>Returnează o listă a rutelor operated de către agenția selectată.</p>
+  <h4>Exemple</h4>
+  	<ul>
+  		<li><a href="/agencies/54/routes.json">Rutele operated de către RATP Iași în JSON</a></li>
+  	</ul>
+  <h3>Properietățile unei rute</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/routes/<var>id</var></tt></p>
+  <p>Returnează un obiect reprezentând ruta dorită.</p>
+  <h4>Exemple</h4>
+  	<ul>
+  		<li><a href="/agencies/54/routes/794.json">Linia 28 aparținând RATP Iași în JSON</a></li>
+  	</ul>
+  
+  <h3>Lista stațiilor de pe o rută</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/routes/<var>id</var>/stops</tt></p>
+  <p>Returnează o listă a stațiilor de pe ruta selectată. Această listă reprezintă reuniunea tuturor stațiilor serviced de către toate cursele aparținând acestei rute, și nu este într-o ordine anume. Pentru a obține o listă ordonată a stațiilor este necesară cererea de stații pentru o anumită cursă.</p>
+  <p>Stațiile pentru cele două direcții ale unei rute bidirecționale sunt often returnate ca și două stații diferite. However, sometimes a terminal of a route may be represented by the same stop in both directions.</p>
+  <h4>Exemple</h4>
+  	<ul>
+  		<li><a href="/agencies/54/routes/788/stops.json">Lista stațiilor aparținând liniei 13 a RATP Iași în JSON</a></li> 
+  	</ul>
+  	
+  <h3>Lista curselor unei rute</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/routes/<var>id</var>/trips</tt></p>
+  <p>Returnează o listă de curse pentru ruta selectată. O cursă descrie o secvență de stații dintre două capete de linie. Majoritatea rutelor au cel puțin două curse și pot avea curse diferite used at specific times of day.</p>
+  <h4>Exemple</h4>
+  	<ul>
+  		<li><a href="/agencies/54/routes/797/trips.json">Lista curselor aparținând liniei 43 a RATP Iași în JSON</a></li>
+  	</ul>
+  
+  <h3>Proprietățile unei curse</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/routes/<var>id</var>/trips/<var>id</var></tt></p>
+  <p>Returnează un obiect reprezentând cursa dorită.</p>
+  <h4>Exemplee</h4>
+  <ul>
+  	<li>
+  		<a href="/agencies/55/routes/782/trips/1397_475.json">O cursă a liniei 6B aparținând Unistil în JSON</a>
+  	</li>
+  </ul>
+  
+  <h3>Lista stațiilor unei curse</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/routes/<var>id</var>/trips/<var>id</var>/stops</tt></p>
+  <p>Returnează o listă a stațiilor pentru cursa selectată. Stațiile sunt returnate în ordinea sosirii, deci primul și ultimul obiect din listă sunt capetele de linie.</p>
+  <h4>Exemple</h4>
+  <ul>
+  	<li>
+  		<a href="/agencies/55/routes/782/trips/1397_475/stops.json">Lista stațiilor parcurse în timpul unei curse de linia 6B aparținând Unistil în JSON</a>
+  	</li> 
+  </ul>
+  
+  <h3>Propietățile unei stații</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/stops/<var>id</var></tt></p>
+  <p>Returnează un obiect reprezentând stația dorită.</p>
+  <h4>Exemple</h4>
+  <ul>
+  	<li>
+  		<a href="/agencies/54/stops/12887.json">Stația Frigorifer în JSON</a>
+  	</li>
+  </ul>
+  
+  <h3>Lista rutelor care deservesc o anumită stație</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/stops/<var>id</var>/routes</tt></p>
+  <p>Returnează o listă a tuturor rutelor care deservesc stația selectată.</p>
+  <h4>Exemple</h4>
+  <ul>
+  	<li>
+  		<a href="/agencies/54/stops/12905/routes.json">Rutele care trec prin stația Podu de Piatră în JSON</a>
+  	</li>
+  </ul>
+  
+  <h3>Lista sosirilor predicted pentru o anumită stație</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/stops/<var>id</var>/predictions</tt></p>
+  <p>Returnează o listă a sosirilor predicted pentru stația selectată, across toate rutele. Predicțiile sunt listate în ordinea sosirii expected.</p>
+  <h4>Exemple</h4>
+  <ul>
+  	<li>
+  		<a href="/agencies/54/stops/12917/predictions.json">Predicted sosiri pentru stația Gară în JSON</a>
+  	</li>
+  </ul>
+  
+  <h3>Lista sosirilor predicted pentru o anumită rută la o anumită stație</h3>
+  <p>URL: <tt>/agencies/<var>id</var>/stops/<var>id</var>/predictions/by-route/<var>id</var></tt></p>
+  <p>Returnează o lisă a sosirilor predicted pentru stația selectată, incluzând numai vehiculele de pe ruta specificată. Predicțiile sunt listate în ordinea sosirii expected.</p>
+  <h4>Exemple</h4>
+  <ul>
+  	<li>
+  		<a href="/agencies/54/stops/12899/predictions/by-route/772.json">Predicted sosiri pentru linia 30 la stația Piața Nicolina în JSON</a>
+  	</li>
+  </ul>
+  
 </html>
