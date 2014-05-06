@@ -459,7 +459,8 @@ public class JSResource {
 						Prediction p = new Prediction(trip.getProperty("trip_id").toString(),
 								Utils.getNextArrival(trip.getProperty("trip_id").toString()),
 								trip.getProperty("route_id").toString(),
-								Utils.getHeadway(trip.getProperty("trip_id").toString()));
+								Utils.getHeadway(trip.getProperty("trip_id").toString()),
+								stoptime.getProperty("arrival_time").toString());
 
 						retpredictions.add(p);
 					}
@@ -498,7 +499,8 @@ public class JSResource {
 						Prediction p = new Prediction(trip.getProperty("trip_id").toString(),
 								Utils.getNextArrival(trip.getProperty("trip_id").toString()),
 								trip.getProperty("route_id").toString(),
-								Utils.getHeadway(trip.getProperty("trip_id").toString()));
+								Utils.getHeadway(trip.getProperty("trip_id").toString()),
+								stoptime.getProperty("arrival_time").toString());
 						retpredictions.add(p);
 					}
 					}

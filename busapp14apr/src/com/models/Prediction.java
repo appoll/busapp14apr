@@ -10,15 +10,22 @@ public class Prediction implements Comparable <Prediction> {
 	
 	int headway;
 
+	double sequence;				// difference in time between initial stop and current stop
+	
 	public Prediction(){}
 	
-	public Prediction (String trip_id, long seconds, String route_id, int headway)
+	public Prediction (String trip_id, long seconds, String route_id, int headway, String time)
 	{
 		this.trip_id = trip_id;
-		this.seconds = seconds;
+		//this.seconds = seconds;
 		this.route_id = route_id;
-		this.minutes = this.seconds/60;
 		this.headway = headway;
+		
+		String [] tokens = time.split(":");
+		this.sequence = Double.parseDouble(tokens[1]);
+		
+		this.seconds= seconds + (this.sequence*60);
+		this.minutes = this.seconds/60;
 	}
 	
 	public int getHeadway() {
