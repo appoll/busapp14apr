@@ -30,7 +30,7 @@ import com.models.Trip;
 
 
 
-@Path("/get/")
+@Path("/getJSON/")
 public class JSONResource {
 
 			//List of agencies
@@ -39,6 +39,7 @@ public class JSONResource {
 	@Produces ({MediaType.APPLICATION_JSON})
 	public CustomList getAgencies ()
 	{
+		System.out.println("da frate");
 		List retag = new ArrayList ();
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Query q = new Query ("Agentii");
@@ -203,30 +204,10 @@ public class JSONResource {
 		Query stopsQ = new Query ("Statii");
 		PreparedQuery stopsPQ = datastore.prepare(stopsQ);
 		
-		
-	
-		/*for (Entity t : tripsList)
-			if (t.getProperty("route_id").toString().equals(route_id))
-				for (Entity st : stoptimesList)
-					if (st.getProperty("trip_id").equals(t.getProperty("trip_id")))
-						for (Entity ss : stopsList)
-							if (ss.getProperty("stop_id").equals(st.getProperty("stop_id")))
-								{
-								Stop stopp = new Stop (ss.getProperty("stop_id").toString(),
-										ss.getProperty("stop_name").toString(),
-										ss.getProperty("stop_desc").toString(),
-										ss.getProperty("stop_lat").toString(),
-										ss.getProperty("stop_lon").toString(),
-										ss.getProperty("zone_id").toString(),
-										ss.getProperty("location_type").toString(),
-										ss.getProperty("parent_station").toString());
-							StopConverter converter = new StopConverter (stopp);
-							retstops.add(converter);
-								}
-	*/
-		
 		for (Entity trip : tripsPQ.asIterable()) 
 		{   
+			if (Utils.checkService (trip.getProperty("service_id").toString()))
+			{
 			if (trip.getProperty("route_id").toString().equals(route_id))
 			{
 				for (Entity stoptime : stoptimesPQ.asIterable())
@@ -253,7 +234,8 @@ public class JSONResource {
 						}
 					}
 				}
-			}			
+			}	
+			}
 		}
 	CustomList ret = new CustomList (retstops);
 	return ret;
@@ -276,6 +258,8 @@ public class JSONResource {
 		
 		for (Entity trip : tripsPQ.asIterable())
 		{
+			if (Utils.checkService (trip.getProperty("service_id").toString()))
+			{
 			if (trip.getProperty("route_id").toString().equals(route_id))
 			{
 				Trip t = new Trip (trip.getProperty("route_id").toString(),
@@ -288,6 +272,7 @@ public class JSONResource {
 				
 				TripConverter converter = new TripConverter (t);
 				rettrips.add(converter);
+			}
 			}
 		}
 		
@@ -310,6 +295,8 @@ public class JSONResource {
 		TripConverter converter = null;
 		
 		for (Entity trip : tripsPQ.asIterable())
+			if (Utils.checkService (trip.getProperty("service_id").toString()))
+			{
 			if (trip.getProperty("route_id").toString().equals(route_id) &&
 				trip.getProperty("trip_id").toString().equals(trip_id))
 			{
@@ -321,6 +308,7 @@ public class JSONResource {
 						trip.getProperty("wheelchair_accessible").toString(),
 						trip.getProperty("shape_id").toString());
 				converter = new TripConverter (t); 
+			}
 			}
 		return converter;
 	}
@@ -349,6 +337,8 @@ public class JSONResource {
 	
 		for (Entity trip : tripsPQ.asIterable())
 		{
+			if (Utils.checkService (trip.getProperty("service_id").toString()))
+			{
 			if (trip.getProperty("route_id").toString().equals(route_id) 
 				&& trip.getProperty("trip_id").toString().equals(trip_id))
 			{
@@ -375,6 +365,7 @@ public class JSONResource {
 						}
 					}
 				
+			}
 			}
 		}
 		
@@ -439,6 +430,8 @@ public class JSONResource {
 			if (stoptime.getProperty("stop_id").toString().equals(stop_id))
 			{
 				for (Entity trip : tripsPQ.asIterable())
+					if (Utils.checkService (trip.getProperty("service_id").toString()))
+					{
 					if (stoptime.getProperty("trip_id").equals(trip.getProperty("trip_id")))
 						for (Entity r : routesPQ.asIterable())
 							if (r.getProperty("route_id").equals(trip.getProperty("route_id")))
@@ -456,7 +449,7 @@ public class JSONResource {
 						       	// elimina duplicatele
 						    	   retroutes.add(converter);
 							}
-			   
+					}
 			}
 		}
 		
@@ -480,18 +473,27 @@ public class JSONResource {
 		PreparedQuery stoptimesPQ = datastore.prepare(stoptimesQ);
 		
 		for (Entity stoptime : stoptimesPQ.asIterable())
+		{
 			if (stoptime.getProperty("stop_id").toString().equals(stop_id))
+			{
 				for (Entity trip : tripsPQ.asIterable())
+				{
 					if (trip.getProperty("trip_id").equals(stoptime.getProperty("trip_id")))
 					{
-						Utils.getServiceID();
 						
+						if (Utils.checkService (trip.getProperty("service_id").toString()))
+						{
 						Prediction p = new Prediction (trip.getProperty("trip_id").toString(),
 													Utils.getNextArrival(trip.getProperty("trip_id").toString()),
-													trip.getProperty("route_id").toString());
-					
-						retpredictions.add(p);
+													trip.getProperty("route_id").toString(),
+													Utils.getHeadway(trip.getProperty("trip_id").toString()));
+						if (p.getSeconds() > 0)
+							retpredictions.add(p);
+						}
 					}
+				}
+			}
+		}
 		
 		Collections.sort(retpredictions);
 		CustomList ret = new CustomList (retpredictions);
@@ -520,11 +522,16 @@ public class JSONResource {
 					if (trip.getProperty("trip_id").equals(stoptime.getProperty("trip_id"))
 						&& trip.getProperty("route_id").toString().equals(route_id))
 					{
+						if (Utils.checkService (trip.getProperty("service_id").toString()))
+						{
 						Prediction p = new Prediction (trip.getProperty("trip_id").toString(), 
 													//Utils.secondsToArrival(stoptime.getProperty("arrival_time").toString()),
 													Utils.getNextArrival(trip.getProperty("trip_id").toString()),
-													trip.getProperty("route_id").toString());
+													trip.getProperty("route_id").toString(),
+													Utils.getHeadway(trip.getProperty("trip_id").toString())
+													);
 						retpredictions.add(p);
+						}
 					}
 		
 		Collections.sort(retpredictions);

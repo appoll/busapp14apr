@@ -54,17 +54,28 @@ public class Utils {
 		return seconds;	
 	}
 	
-	
-	public static String getServiceID ()				// în funcție de zi
+	public static boolean checkService (String service_id)				// în funcție de zi
 	{
-		String id = "";
 		Calendar current = Calendar.getInstance();
 		Locale locale = Locale.getDefault();
 		
 		String day = current.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, locale);
 		day = day.toLowerCase();
 		
-		return id;
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
+		Query calendarQ = new Query ("Calendar");
+		PreparedQuery calendarPQ = datastore.prepare(calendarQ);
+		
+		for (Entity service : calendarPQ.asIterable())
+		{
+			if (service.getProperty("service_id").toString().equals(service_id))
+			{
+				if (service.getProperty(day).toString().equals("1"))
+					return true;
+			}
+		}
+		return false;
 	}
 	
 	public static int getHeadway (String trip_id)
@@ -103,26 +114,14 @@ public class Utils {
 				Date startDate = start.getTime();
 				Date endDate = end.getTime();
 				
-	//			System.out.println("de ce nu ? " + freq.getProperty("trip_id"));
-				
-				
-	//			System.out.println("START : " + startDate);
-	//			System.out.println("CURENTA : " + currentDate);
-	//			System.out.println("FINAL : " + endDate);
-				
 					if (currentDate.after(startDate) && currentDate.before(endDate))
 					{	
-					//	System.out.println("DA DA DA DA DA DA DA DA DA DA DA DA DA DA");
-					//	System.out.println(freq.getProperty("trip_id"));
-					//	System.out.println("intervalul"+ freq.getProperty("start_time")+" și " + freq.getProperty("end_time"));
-						
-						return Integer.parseInt(freq.getProperty("headway_secs").toString());
+							return Integer.parseInt(freq.getProperty("headway_secs").toString());
 					}
 			}
 		}
 		return 0;
 	}
-	
 	
 	public static long getNextArrival (String trip_id)
 	{
@@ -160,13 +159,14 @@ public class Utils {
 				Date startDate = start.getTime();
 				Date endDate = end.getTime();
 				
+				System.out.println("nimic");
 					if (currentDate.after(startDate) && currentDate.before(endDate))
-					{	
-						
+					{		
 						Date d = startDate;
 						System.out.println("________________________________________________________");
 						System.out.println("start: "+d);
 						int headway = Integer.parseInt(freq.getProperty("headway_secs").toString());
+						
 						while (d.before(currentDate))
 						{
 							d.setTime(d.getTime() + ONE_SECOND_IN_MILLIS * headway);
@@ -179,6 +179,6 @@ public class Utils {
 					}
 			}
 		}
-		return 0;
+		return -1;
 	}
 }

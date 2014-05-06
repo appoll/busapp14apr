@@ -8,14 +8,25 @@ public class Prediction implements Comparable <Prediction> {
 	double seconds;
 	double minutes;
 	
+	int headway;
+
 	public Prediction(){}
 	
-	public Prediction (String trip_id, long seconds, String route_id)
+	public Prediction (String trip_id, long seconds, String route_id, int headway)
 	{
 		this.trip_id = trip_id;
 		this.seconds = seconds;
 		this.route_id = route_id;
 		this.minutes = this.seconds/60;
+		this.headway = headway;
+	}
+	
+	public int getHeadway() {
+		return headway;
+	}
+
+	public void setHeadway(int headway) {
+		this.headway = headway;
 	}
 	
 	public String getTrip_id() {
