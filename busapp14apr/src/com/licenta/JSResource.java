@@ -457,7 +457,7 @@ public class JSResource {
 							stoptime.getProperty("trip_id"))) {
 
 						Prediction p = new Prediction(trip.getProperty("trip_id").toString(),
-								Utils.getNextArrival(trip.getProperty("trip_id").toString()),
+								Utils.getNextArrival(trip.getProperty("trip_id").toString(),stoptime.getProperty("arrival_time").toString()),
 								trip.getProperty("route_id").toString(),
 								Utils.getHeadway(trip.getProperty("trip_id").toString()),
 								stoptime.getProperty("arrival_time").toString());
@@ -497,7 +497,7 @@ public class JSResource {
 							&& trip.getProperty("route_id").toString()
 									.equals(route_id)) {
 						Prediction p = new Prediction(trip.getProperty("trip_id").toString(),
-								Utils.getNextArrival(trip.getProperty("trip_id").toString()),
+								Utils.getNextArrival(trip.getProperty("trip_id").toString(),stoptime.getProperty("arrival_time").toString()),
 								trip.getProperty("route_id").toString(),
 								Utils.getHeadway(trip.getProperty("trip_id").toString()),
 								stoptime.getProperty("arrival_time").toString());

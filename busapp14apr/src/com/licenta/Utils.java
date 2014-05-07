@@ -123,8 +123,11 @@ public class Utils {
 		return 0;
 	}
 	
-	public static long getNextArrival (String trip_id)
+	public static long getNextArrival (String trip_id, String sequence_time)
 	{
+		String [] tokens  = sequence_time.split(":");
+		int sequence = Integer.parseInt(tokens[1])*60;
+		
 		Calendar current = Calendar.getInstance();
 		Calendar start = new GregorianCalendar(current.get(Calendar.YEAR),
 												current.get(Calendar.MONTH),
@@ -159,13 +162,18 @@ public class Utils {
 				Date startDate = start.getTime();
 				Date endDate = end.getTime();
 				
-				System.out.println("nimic");
+				System.out.println("ora curenta: " + currentDate);
+				currentDate.setTime (currentDate.getTime() - ONE_SECOND_IN_MILLIS * sequence);
+				System.out.println("ora curenta respectand secventa: " + currentDate);
+				
 					if (currentDate.after(startDate) && currentDate.before(endDate))
 					{		
 						Date d = startDate;
 						System.out.println("________________________________________________________");
 						System.out.println("start: "+d);
 						int headway = Integer.parseInt(freq.getProperty("headway_secs").toString());
+						// sequence = Integer.parseInt(tokens[1])*60;
+						
 						
 						while (d.before(currentDate))
 						{
@@ -175,6 +183,8 @@ public class Utils {
 						System.out.println("curent: "+currentDate);
 						System.out.println ((currentDate.getTime()-d.getTime())/1000);
 						System.out.println("________________________________________________________");
+						
+						currentDate.setTime (currentDate.getTime() + ONE_SECOND_IN_MILLIS * sequence);
 						return (d.getTime()-currentDate.getTime())/1000;
 					}
 			}

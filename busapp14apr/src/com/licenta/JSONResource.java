@@ -486,11 +486,11 @@ public class JSONResource {
 							
 							
 						Prediction p = new Prediction (trip.getProperty("trip_id").toString(),
-													Utils.getNextArrival(trip.getProperty("trip_id").toString()),
+													Utils.getNextArrival(trip.getProperty("trip_id").toString(),stoptime.getProperty("arrival_time").toString()),
 													trip.getProperty("route_id").toString(),
 													Utils.getHeadway(trip.getProperty("trip_id").toString()),
 													stoptime.getProperty("arrival_time").toString());
-						if (p.getSeconds() > 0)
+					//	if (p.getSeconds() > 0)
 							retpredictions.add(p);
 						}
 					}
@@ -529,7 +529,7 @@ public class JSONResource {
 						{
 						Prediction p = new Prediction (trip.getProperty("trip_id").toString(), 
 													//Utils.secondsToArrival(stoptime.getProperty("arrival_time").toString()),
-													Utils.getNextArrival(trip.getProperty("trip_id").toString()),
+													Utils.getNextArrival(trip.getProperty("trip_id").toString(), stoptime.getProperty("arrival_time").toString()),
 													trip.getProperty("route_id").toString(),
 													Utils.getHeadway(trip.getProperty("trip_id").toString()),
 													stoptime.getProperty("arrival_time").toString()
